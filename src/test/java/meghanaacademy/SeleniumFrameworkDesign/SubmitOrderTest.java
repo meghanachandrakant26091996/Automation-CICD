@@ -29,32 +29,32 @@ public class SubmitOrderTest extends BaseTest{
 	{
 		
 		
-        
-		ProductCatalogue productCatalogue = landingPage.LoginApplication(email,password);
+		 Assert.assertNotNull(landingPage, "landingPage is null. Application launch failed.");
 
-		List<WebElement> products = productCatalogue.getProductList();
-		productCatalogue.addProductToCart(productName);
-		CartPage cartPage = productCatalogue.goToCartPage();
+	        ProductCatalogue productCatalogue = landingPage.LoginApplication(email, password);
+	        List<WebElement> products = productCatalogue.getProductList();
+	        productCatalogue.addProductToCart(productName);
+	        CartPage cartPage = productCatalogue.goToCartPage();
 
-		Boolean match = cartPage.verifyProductDisplay(productName);
-		Assert.assertTrue(match);
-		CheckoutPage checkoutPage = cartPage.goToCheckout();
-		checkoutPage.selectCountry("india");
-		ConfirmationPage confirmationPage = checkoutPage.submitOrder();
-		String confirmMessage = confirmationPage.getConfirmationMessage();
+	        Boolean match = cartPage.verifyProductDisplay(productName);
+	        Assert.assertTrue(match);
+	        CheckoutPage checkoutPage = cartPage.goToCheckout();
+	        checkoutPage.selectCountry("india");
+	        ConfirmationPage confirmationPage = checkoutPage.submitOrder();
+	        String confirmMessage = confirmationPage.getConfirmationMessage();
 
-		Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
-		
+	        Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 	}
 	
 	
 	@Test(dependsOnMethods= {"submitOrder"})
 	public void orderHistoryTest()
 	{
-		ProductCatalogue productCatalogue = landingPage.LoginApplication("meghanachandrakant.26@gmail.com",
-				"Meghsch@nd1");
-		OrderPage orderPage = productCatalogue.goToOrderPage();
-		Assert.assertTrue(orderPage.verifyOrderDisplay(productName));
+		Assert.assertNotNull(landingPage, "landingPage is null. Application launch failed.");
+
+        ProductCatalogue productCatalogue = landingPage.LoginApplication("meghanachandrakant.26@gmail.com", "Meghsch@nd1");
+        OrderPage orderPage = productCatalogue.goToOrderPage();
+        Assert.assertTrue(orderPage.verifyOrderDisplay(productName));
 	}
 	
 	

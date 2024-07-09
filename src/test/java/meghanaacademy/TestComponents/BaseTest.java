@@ -24,61 +24,44 @@ import meghanaacademy.SeleniumFrameworkDesign.LandingPage;
 
 public class BaseTest {
 
-	protected WebDriver driver;
+	public WebDriver driver;
 	public LandingPage landingPage;
 	
 	public WebDriver initializeDriver() throws IOException
 	{
 		Properties prop = new Properties();
-		FileInputStream fis = null;
-	    
-        try {
-            fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\test\\java\\meghanaacademy\\resources\\GlobalData.properties");
-            prop.load(fis);
-            
-            String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : prop.getProperty("browser");
-            
-            if (browserName != null && browserName.contains("chrome")) {
-                ChromeOptions options = new ChromeOptions();
-                WebDriverManager.chromedriver().setup();
-                if (browserName.contains("headless")) {
-                    options.addArguments("headless");
-                }
-                driver = new ChromeDriver(options);
-                driver.manage().window().setSize(new Dimension(1440, 900));
-            } else if (browserName != null && browserName.equalsIgnoreCase("firefox")) {
-                System.setProperty("webdriver.gecko.driver", "C:\\Users\\Meghana Chandrakant\\Documents\\geckodriver-v0.34.0-win64");
-                driver = new FirefoxDriver();
-            } else if (browserName != null && browserName.equalsIgnoreCase("edge")) {
-                // Handle Edge browser setup if needed
-            } else {
-                System.out.println("Unsupported browser specified.");
-            }
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\java\\meghanaacademy\\resources\\GlobalData.properties");
+	            prop.load(fis);
 
-            if (driver != null) {
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-                driver.manage().window().maximize();
-            } else {
-                System.out.println("WebDriver initialization failed.");
-            }
+	            String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : prop.getProperty("browser");
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("GlobalData.properties file not found. Please check the path.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading GlobalData.properties file.");
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return driver;
-    }
+	            if (browserName.contains("Chrome")) {
+	                ChromeOptions options = new ChromeOptions();
+	                WebDriverManager.chromedriver().setup();
+	                if (browserName.contains("headless")) {
+	                    options.addArguments("headless");
+	                }
+	                driver = new ChromeDriver(options);
+	                driver.manage().window().setSize(new Dimension(1440, 900));
+	            } else if (browserName.equalsIgnoreCase("firefox")) {
+	                System.setProperty("webdriver.gecko.driver", "C:\\Users\\Meghana Chandrakant\\Documents\\geckodriver-v0.34.0-win64");
+	                driver = new FirefoxDriver();
+	            } else if (browserName.equalsIgnoreCase("edge")) {
+	                // Handle Edge browser setup if needed
+	            } else {
+	                System.out.println("Unsupported browser specified.");
+	            }
+
+	            if (driver != null) {
+	                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	                driver.manage().window().maximize();
+	            } else {
+	                System.out.println("WebDriver initialization failed.");
+	            }
+
+	
+	        return driver;
+	    }
 
 	
 	public String getScreenshot(String testCaseName, WebDriver driver) throws IOException
@@ -92,18 +75,16 @@ public class BaseTest {
 	}
 	
 	@BeforeMethod(alwaysRun=true)
-	 public LandingPage launchApplication() throws IOException {
-		 driver = initializeDriver();
-	        
-	        if (driver != null) {
-	            landingPage = new LandingPage(driver);
-	            landingPage.goTo(); // Navigate to landing page if needed
-	        } else {
-	            System.out.println("WebDriver is null. Application launch failed.");
-	        }
-	        
-	        return landingPage;
-	    }
+	public void launchApplication() throws IOException {
+        driver = initializeDriver();
+
+        if (driver != null) {
+            landingPage = new LandingPage(driver);
+            landingPage.goTo(); // Navigate to landing page if needed
+        } else {
+            System.out.println("WebDriver is null. Application launch failed.");
+        }
+    }
 	
 	@AfterMethod(alwaysRun=true)
 	public void tearDown() {
