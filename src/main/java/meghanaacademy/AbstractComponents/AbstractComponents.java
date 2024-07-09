@@ -25,7 +25,7 @@ public class AbstractComponents {
 	@FindBy(xpath="//button[@routerlink='/dashboard/cart']")
 	WebElement cartHeader;
 	
-	@FindBy(css="routerlink*='myorders'")
+	@FindBy(xpath="//button[@routerlink='/dashboard/myorders']")
 	WebElement orderHeader;
 	
 	@FindBy(xpath="//section[@class='ta-results list-group ng-star-inserted']")
@@ -69,10 +69,10 @@ public class AbstractComponents {
 //	    wait.until(ExpectedConditions.invisibilityOf(ele));
 	}
 	
-	public void waitForElementToBeClickable(WebElement proceed)
+	public void waitForElementToBeClickable(WebElement findBy)
 	{
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.elementToBeClickable(proceed));
+		wait.until(ExpectedConditions.elementToBeClickable(findBy));
 	}
 
 }

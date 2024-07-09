@@ -3,6 +3,7 @@ package meghanaacademy.SeleniumFrameworkDesign;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -34,16 +35,18 @@ public class CheckoutPage extends AbstractComponents{
 	
 	By results = By.xpath("//section[@class='ta-results list-group ng-star-inserted']");
 	
-	public void selectCountry(String countryName)
+	public void selectCountry(String countryName) 
 	{
 	Actions a = new Actions(driver);
 	a.sendKeys(country, countryName).build().perform();
 	waitForElementToAppear(results);
-	selectCountry.click();	
+	selectCountry.click();
 	}
 	
 	public ConfirmationPage submitOrder()
 	{
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+		 js.executeScript("arguments[0].scrollIntoView();", submit);
 		waitForElementToBeClickable(submit);
 		submit.click();
 		return new ConfirmationPage(driver);

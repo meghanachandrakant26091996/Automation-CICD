@@ -75,7 +75,7 @@ public class BaseTest {
 	}
 	
 	@BeforeMethod(alwaysRun=true)
-	public void launchApplication() throws IOException {
+	public LandingPage launchApplication() throws IOException {
         driver = initializeDriver();
 
         if (driver != null) {
@@ -84,6 +84,7 @@ public class BaseTest {
         } else {
             System.out.println("WebDriver is null. Application launch failed.");
         }
+		return landingPage;
     }
 	
 	@AfterMethod(alwaysRun=true)

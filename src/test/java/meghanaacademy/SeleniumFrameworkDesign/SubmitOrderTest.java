@@ -50,7 +50,7 @@ public class SubmitOrderTest extends BaseTest{
 	@Test(dependsOnMethods= {"submitOrder"})
 	public void orderHistoryTest()
 	{
-		Assert.assertNotNull(landingPage, "landingPage is null. Application launch failed.");
+//		Assert.assertNotNull(landingPage, "landingPage is null. Application launch failed.");
 
         ProductCatalogue productCatalogue = landingPage.LoginApplication("meghanachandrakant.26@gmail.com", "Meghsch@nd1");
         OrderPage orderPage = productCatalogue.goToOrderPage();

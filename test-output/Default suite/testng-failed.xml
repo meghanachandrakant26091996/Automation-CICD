@@ -6,7 +6,7 @@
       <class name="meghanaacademy.SeleniumFrameworkDesign.SubmitOrderTest">
         <methods>
           <include name="tearDown"/>
-          <include name="submitOrder" invocation-numbers="0"/>
+          <include name="submitOrder"/>
           <include name="launchApplication"/>
           <include name="orderHistoryTest"/>
         </methods>
